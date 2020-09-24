@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gold Rush</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="scores"></div>
+    <div id="board"></div>
+
+    <script id="board-template" type="text/x-handlebars">
+      {{#each board}}
+      <div class="row" data-id={{@index}}>
+          {{#each this}}
+          <div class="column" data-id={{@index}}><span data-value={{this}}>{{this}}</span></div>
+          {{/each}}
+      </div>
+      {{/each}}
+    </script>
+    <script id="scores-template" type="text/x-handlebars">
+      {{#each scores}}
+        <div class="player-score" data-player-id="{{playerNum}}">
+            <span class="score-title">player {{playerNum}}</span><span class="score">{{score}}</span></div>
+        {{/each}}
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"
+      integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <script src="GoldRush.js"></script>
+    <script src="Renderer.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
