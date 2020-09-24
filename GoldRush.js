@@ -14,6 +14,7 @@ class GoldRush {
       positions: [],
       figure: "c",
     }
+    this.dimensions = dimensions
     this.cleared = { figure: "." }
     this.matrix = this.loadBoard(dimensions)
   }
@@ -94,9 +95,7 @@ class GoldRush {
   collectCoin(playerIndex) {
     const player = this.players[playerIndex]
     player.coins++
-    console.log(
-      `player ${player.id} collected a coin! Now they have ${player.coins} coins.`
-    )
+    //console.log(`player ${player.id} collected a coin! Now they have ${player.coins} coins.`)
     const coinPosIndex = this.coins.positions.findIndex(
       (pos) =>
         pos.row === player.position.row && pos.col === player.position.col
@@ -119,10 +118,45 @@ class GoldRush {
       }
     }
   }
-  movePlayer(playerId, direction) {
-    const changeRow = direction === "down" ? 1 : direction === "up" ? -1 : 0
-    const changeCol = direction === "right" ? 1 : direction === "left" ? -1 : 0
+  isValidMove(playerIndex, direction) {
+    const activePlayer = this.players[playerIndex]
+    const otherPlayer = this.players[playerIndex === 1 ? 0 : 1]
 
+    let isSpaceLeftUntillEdge = true,
+      isAdjacentToOtherPlayer = false
+    switch (direction) {
+      case "down":
+        isSpaceLeftUntillEdge = this.dimensions - 1 - activePlayer.position.row
+        isAdjacentToOtherPlayer =
+          otherPlayer.position.col === activePlayer.position.col &&
+          otherPlayer.position.row - 1 === activePlayer.position.row
+        //isNotAdjacentToBlock= this.blocks.positions.some(pos=>pos.row - 1 === activePlayer.position.row)
+        break
+      case "up":
+        isSpaceLeftUntillEdge = 0 + activePlayer.position.row
+        isAdjacentToOtherPlayer =
+          otherPlayer.position.col === activePlayer.position.col &&
+          activePlayer.position.row - 1 === otherPlayer.position.row
+        // block
+        break
+      case "right":
+        isSpaceLeftUntillEdge = this.dimensions - 1 - activePlayer.position.col
+        isAdjacentToOtherPlayer =
+          otherPlayer.position.row === activePlayer.position.row &&
+          otherPlayer.position.col - 1 === activePlayer.position.col
+        // block
+        break
+      case "left":
+        isSpaceLeftUntillEdge = 0 + activePlayer.position.col
+        isAdjacentToOtherPlayer =
+          otherPlayer.position.row === activePlayer.position.row &&
+          activePlayer.position.col - 1 === otherPlayer.position.col
+        // block
+        break
+    }
+    return !isSpaceLeftUntillEdge || isAdjacentToOtherPlayer ? false : true
+  }
+  movePlayer(playerId, direction) {
     let player, pIndex
     this.players.forEach((p, index) => {
       if (p.id === playerId) {
@@ -130,11 +164,16 @@ class GoldRush {
         pIndex = index
       }
     })
-    this.clearPosition(player.position.row, player.position.col)
-    player.position.row += changeRow
-    player.position.col += changeCol
-    this.setPlayersPositionOnBoard()
-    this.checkIfCollectedCoin(pIndex)
+    if (this.isValidMove(pIndex, direction)) {
+      const changeRow = direction === "down" ? 1 : direction === "up" ? -1 : 0
+      const changeCol =
+        direction === "right" ? 1 : direction === "left" ? -1 : 0
+      this.clearPosition(player.position.row, player.position.col)
+      player.position.row += changeRow
+      player.position.col += changeCol
+      this.setPlayersPositionOnBoard()
+      this.checkIfCollectedCoin(pIndex)
+    }
   }
   getPlayersScores() {
     const scores = this.players.map((p) => {
@@ -143,9 +182,3 @@ class GoldRush {
     return scores
   }
 }
-
-/* board.print()
-board.movePlayer(1, "down")
-board.print()
-board.movePlayer(2, "left")
-board.print() */
