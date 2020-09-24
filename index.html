@@ -4,17 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gold Rush</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="scores"></div>
-    <div id="board"></div>
-
+    <div id="main">
+      <div id="scores"></div>
+      <div id="board"></div>
+    </div>
+    <div id="game-over-modal" class="hidden">
+      <div id="modal-content" class="w3-center w3-animate-top">
+        <div id="game-over-container"></div>
+        <button class="new-game">New Game</button>
+      </div>
+    </div>
     <script id="board-template" type="text/x-handlebars">
       {{#each board}}
       <div class="row" data-id={{@index}}>
           {{#each this}}
-          <div class="column" data-id={{@index}}><span data-value={{this}}>{{this}}</span></div>
+          <div class="column" data-id={{@index}} data-value={{this}}><span>{{this}}</span></div>
           {{/each}}
       </div>
       {{/each}}
@@ -24,6 +32,14 @@
         <div class="player-score" data-player-id="{{playerNum}}">
             <span class="score-title">player {{playerNum}}</span><span class="score">{{score}}</span></div>
         {{/each}}
+    </script>
+    <script id="game-over-template" type="text/x-handlebars">
+      <h1>{{#if (isTie winner)}}It's a tie!{{else}}Player{{winner}} is the winner!{{/if}}</h1>
+      <div id="final-scores">
+          {{#each scores}}
+          <span class="score-title">player{{playerNum}}:</span><span class="score">{{score}}</span>
+          {{/each}}
+      </div>
     </script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"

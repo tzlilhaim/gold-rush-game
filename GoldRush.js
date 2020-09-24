@@ -1,5 +1,6 @@
 class GoldRush {
   constructor(dimensions = 5) {
+    this.dimensions = dimensions
     this.players = [
       { id: 1, position: { row: 0, col: 0 }, figure: 1, coins: 0 },
       {
@@ -10,11 +11,10 @@ class GoldRush {
       },
     ]
     this.coins = {
-      total: dimensions,
+      total: 0,
       positions: [],
       figure: "c",
     }
-    this.dimensions = dimensions
     this.cleared = { figure: "." }
     this.matrix = this.loadBoard(dimensions)
   }
@@ -49,6 +49,7 @@ class GoldRush {
     //const clearedPositions = this.getClearedPositions(board)
   }
   placeCoinsRandomly(board) {
+    this.coins.total = this.dimensions
     const clearedPositions = this.getClearedPositions(board)
     for (let i = 0; i < this.coins.total; i++) {
       let position =
@@ -62,7 +63,8 @@ class GoldRush {
     }
     this.setCoinsPositionOnBoard(board)
   }
-  loadBoard(dimensions) {
+  loadBoard(dimensions = this.dimensions) {
+    debugger
     const board = []
 
     for (let r = 0; r < dimensions; r++) {
@@ -175,10 +177,21 @@ class GoldRush {
       this.checkIfCollectedCoin(pIndex)
     }
   }
-  getPlayersScores() {
+  getGameScore() {
+    let winner = null
+    if (!this.coins.total) {
+      const player1 = this.players[0]
+      const player2 = this.players[1]
+      winner =
+        player1.coins > player2.coins
+          ? player1.id
+          : player1.coins === player2.coins
+          ? 3
+          : player2.id
+    }
     const scores = this.players.map((p) => {
       return { playerNum: p.id, score: p.coins }
     })
-    return scores
+    return { scores, winner }
   }
 }

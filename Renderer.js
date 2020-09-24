@@ -5,6 +5,8 @@ class Renderer {
       $boardContainer: $("#board"),
       $scoresTemplate: $("#scores-template"),
       $scoresContainer: $("#scores"),
+      $gameOverTemplate: $("#game-over-template"),
+      $gameOverContainer: $("#game-over-container"),
     }
   }
   getTemplateHtml($template, data) {
@@ -24,5 +26,16 @@ class Renderer {
     $container.empty()
     const newHTML = this.getTemplateHtml(this.view.$boardTemplate, { board })
     $container.append(newHTML)
+  }
+  renderGameOver(game) {
+    const $container = this.view.$gameOverContainer
+    $container.empty()
+
+    Handlebars.registerHelper("isTie", function (value) {
+      return value === 3
+    })
+    const newHTML = this.getTemplateHtml(this.view.$gameOverTemplate, game)
+    $container.append(newHTML)
+    $("#game-over-modal").removeClass("hidden")
   }
 }

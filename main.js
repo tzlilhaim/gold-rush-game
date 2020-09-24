@@ -1,49 +1,66 @@
-const board = new GoldRush()
 const renderer = new Renderer()
 
-const loadPlayersScores = function () {
-  const playersScores = board.getPlayersScores()
-  renderer.renderScores(playersScores)
+// Global scope variables definition
+let isGameActive = false
+let isDown = false
+let board
+
+const loadGameScore = function () {
+  const game = board.getGameScore()
+  if (game.winner) {
+    renderer.renderGameOver(game)
+    isGameActive = false
+  } else {
+    renderer.renderScores(game.scores)
+  }
 }
 
 const loadGameBoard = function () {
+  !isGameActive ? (isGameActive = true) : null
   const gameBoard = board.matrix
   renderer.renderBoard(gameBoard)
 }
 
-loadGameBoard()
-loadPlayersScores()
+const startNewGame = function () {
+  board = new GoldRush()
+  loadGameBoard()
+  loadGameScore()
+}
 
-// Handle player 1
+startNewGame()
+
+// Handle player 1 keys
 $(document).keypress(function (e) {
+  if (!isGameActive) {
+    return
+  }
   switch (e.which) {
     case 119:
       board.movePlayer(1, "up")
       loadGameBoard()
-      loadPlayersScores()
+      loadGameScore()
       break
     case 115:
       board.movePlayer(1, "down")
       loadGameBoard()
-      loadPlayersScores()
+      loadGameScore()
       break
     case 97:
       board.movePlayer(1, "left")
       loadGameBoard()
-      loadPlayersScores()
+      loadGameScore()
       break
     case 100:
       board.movePlayer(1, "right")
       loadGameBoard()
-      loadPlayersScores()
+      loadGameScore()
       break
   }
 })
 
-// Handle player 2
-let isDown = false
+// Handle player 2 keys
 $(document).keydown(function (e) {
-  if (isDown) {
+  if (isDown || !isGameActive) {
     return
   }
   isDown = true
@@ -51,26 +68,31 @@ $(document).keydown(function (e) {
     case 38:
       board.movePlayer(2, "up")
       loadGameBoard()
-      loadPlayersScores()
+      loadGameScore()
       break
     case 40:
       board.movePlayer(2, "down")
       loadGameBoard()
-      loadPlayersScores()
+      loadGameScore()
       break
     case 37:
       board.movePlayer(2, "left")
       loadGameBoard()
-      loadPlayersScores()
+      loadGameScore()
       break
     case 39:
       board.movePlayer(2, "right")
       loadGameBoard()
-      loadPlayersScores()
+      loadGameScore()
       break
   }
 })
 
 $(document).keyup(function () {
   isDown = false
+})
+
+$(".new-game").on("click", function () {
+  startNewGame()
+  $("#game-over-modal").addClass("hidden")
 })
