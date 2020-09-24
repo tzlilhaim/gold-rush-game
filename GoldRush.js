@@ -136,6 +136,12 @@ class GoldRush {
     this.setPlayersPositionOnBoard()
     this.checkIfCollectedCoin(pIndex)
   }
+  getPlayersScores() {
+    const scores = this.players.map((p) => {
+      return { playerNum: p.id, score: p.coins }
+    })
+    return scores
+  }
 }
 
 /* board.print()
