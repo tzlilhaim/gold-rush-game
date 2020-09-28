@@ -20,6 +20,7 @@
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  background-color: #d0bba9;
 }
 
 .player-score {
@@ -30,7 +31,7 @@
 #board {
   height: 100%;
   width: fit-content;
-  background-color: gray;
+  background-color: #d0bba9;
   display: grid;
   grid-gap: 5px;
 }
@@ -42,21 +43,27 @@
   grid-auto-flow: column;
   grid-auto-columns: minmax(100px, 200px);
   grid-gap: 5px;
-  background-color: gray;
+  background-color: #d0bba9;
 }
 
 .column {
   width: 100%;
   height: 100%;
-  background-color: rgb(228, 222, 222);
+  background-color: #fdebdc;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .column > span {
   height: auto;
   width: 100%;
   align-self: center;
+  position: relative;
+}
+.column > span > i {
+  height: auto;
+  width: auto;
 }
 
 #game-over-modal {
@@ -77,11 +84,77 @@
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+  color: white;
+}
+
+#game-over-container >div{
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+}
+
+#final-scores{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.new-game {
+  margin-top: 20px;
+  border: solid 2px white;
+  padding: 10px;
+  background-color: transparent;
+  color: white;
+  outline: none;
+  grid-area: b;
 }
 
 .new-game:hover,
 .new-game:focus {
-  color: black;
+  background-color: rgba(0, 0, 0, 0.418);
   text-decoration: none;
   cursor: pointer;
+}
+
+div[data-value="1"] > span {
+  color: #730000;
+  position: fixed;
+}
+
+div[data-value="2"] > span {
+  color: #0033a9;
+  position: fixed;
+}
+
+div[data-value="c"] > span {
+  background-image: url("./assets/coin.png");
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  background-size: contain;
+  height: 100%;
+  max-width: 100px;
+  background-position: center;
+}
+
+.player-score {
+  padding-top: 10px;
+}
+
+.score-title {
+  font-weight: bold;
+  font-size: large;
+}
+
+div.player-score[data-player-id="1"] > .score-title {
+  color: #730000;
+  font-size: large;
+}
+
+div.player-score[data-player-id="2"] > .score-title {
+  color: #0033a9;
+}
+
+#modal-content[data-winner-id="1"] {
+  background-color: #c54f4fc7;
+}
+#modal-content[data-winner-id="2"] {
+  background-color: #446eadc7;
 }

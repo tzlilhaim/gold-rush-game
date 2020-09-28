@@ -30,12 +30,9 @@ class Renderer {
   renderGameOver(game) {
     const $container = this.view.$gameOverContainer
     $container.empty()
-
-    Handlebars.registerHelper("isTie", function (value) {
-      return value === 3
-    })
     const newHTML = this.getTemplateHtml(this.view.$gameOverTemplate, game)
     $container.append(newHTML)
+    $("#modal-content").attr("data-winner-id",game.winner)
     $("#game-over-modal").removeClass("hidden")
   }
 }
