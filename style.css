@@ -135,8 +135,8 @@ div[data-value="c"] > span {
   background-repeat: repeat-x;
   background-position: 0 0;
   background-size: cover;
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
   position: fixed;
   background-position: center;
 }
