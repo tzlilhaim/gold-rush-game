@@ -134,9 +134,10 @@ div[data-value="c"] > span {
   background-image: url("./assets/coin.png");
   background-repeat: repeat-x;
   background-position: 0 0;
-  background-size: contain;
-  height: 100%;
-  max-width: 100px;
+  background-size: cover;
+  height: 100px;
+  width: 100px;
+  position: fixed;
   background-position: center;
 }
 
@@ -164,9 +165,12 @@ div.player-score[data-player-id="2"] > .score-title {
 #game-over-modal-content[data-winner-id="2"] {
   background-color: #112c69c7;
 }
+#game-over-modal-content[data-winner-id="3"] {
+    background-color: #2f2818cc;
+  }
 
 #start-game-modal-content {
-  background-color: #3a2c0acc;
+  background-color: #2f2818cc;
   text-align: center;
 }
 
