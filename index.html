@@ -14,14 +14,27 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="main">
+    <div id="main" class="hidden">
       <div id="scores"></div>
       <div id="board"></div>
     </div>
+    <div id="start-game-modal">
+      <div id="start-game-modal-content" class="w3-center w3-animate-top">
+        <h1>Welcome to Gold Rush!</h1>
+        <div id="game-dimensions-container">
+          <label for="dimentions-input"
+            >Enter dimensions for your board (5-10)</label
+          >
+          <input type="number" min="5" max="10" value="5" />
+        </div>
+        <button class="start-game">Start Game!</button>
+      </div>
+    </div>
     <div id="game-over-modal" class="hidden">
-      <div id="modal-content" class="w3-center w3-animate-top">
+      <div id="game-over-modal-content" class="w3-center w3-animate-top">
         <div id="game-over-container"></div>
         <button class="new-game">New Game</button>
+        <button class="change-dimensions">Change Dimensions</button>
       </div>
     </div>
     <script id="board-template" type="text/x-handlebars">

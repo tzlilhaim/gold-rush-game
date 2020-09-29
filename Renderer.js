@@ -32,7 +32,7 @@ class Renderer {
     $container.empty()
     const newHTML = this.getTemplateHtml(this.view.$gameOverTemplate, game)
     $container.append(newHTML)
-    $("#modal-content").attr("data-winner-id",game.winner)
+    $("#game-over-modal-content").attr("data-winner-id",game.winner)
     $("#game-over-modal").removeClass("hidden")
   }
 }

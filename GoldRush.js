@@ -64,7 +64,6 @@ class GoldRush {
     this.setCoinsPositionOnBoard(board)
   }
   loadBoard(dimensions = this.dimensions) {
-    debugger
     const board = []
 
     for (let r = 0; r < dimensions; r++) {

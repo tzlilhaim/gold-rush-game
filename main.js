@@ -4,6 +4,7 @@ const renderer = new Renderer()
 let isGameActive = false
 let isDown = false
 let board
+let dimensions
 
 const loadGameScore = function () {
   const game = board.getGameScore()
@@ -21,13 +22,11 @@ const loadGameBoard = function () {
   renderer.renderBoard(gameBoard)
 }
 
-const startNewGame = function () {
-  board = new GoldRush()
+const startNewGame = function (dimensions) {
+  board = new GoldRush(dimensions)
   loadGameBoard()
   loadGameScore()
 }
-
-startNewGame()
 
 // Handle player 1 keys
 $(document).keypress(function (e) {
@@ -93,6 +92,18 @@ $(document).keyup(function () {
 })
 
 $(".new-game").on("click", function () {
-  startNewGame()
+  startNewGame(dimensions)
   $("#game-over-modal").addClass("hidden")
+})
+$(".change-dimensions").on("click", function () {
+  $("#game-over-modal").addClass("hidden")
+  $("#start-game-modal").removeClass("hidden")
+  $("#main").addClass("hidden")
+})
+
+$(".start-game").on("click", function () {
+  dimensions = $("#game-dimensions-container > input[type=number]").val()
+  startNewGame(dimensions)
+  $("#start-game-modal").addClass("hidden")
+  $("#main").removeClass("hidden")
 })

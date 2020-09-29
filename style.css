@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  outline: none;
 }
 
 .hidden {
@@ -66,7 +67,8 @@
   width: auto;
 }
 
-#game-over-modal {
+#game-over-modal,
+#start-game-modal {
   position: fixed;
   z-index: 1;
   left: 0;
@@ -78,8 +80,12 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-#modal-content {
+#game-over-modal-content {
   background-color: #fefefe;
+}
+
+#game-over-modal-content,
+#start-game-modal-content {
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
@@ -88,40 +94,39 @@
   color: white;
 }
 
-#game-over-container >div{
+#game-over-container > div {
   display: grid;
   grid-template-rows: 1fr 2fr;
 }
 
-#final-scores{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+#final-scores {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-.new-game {
+button {
   margin-top: 20px;
   border: solid 2px white;
   padding: 10px;
   background-color: transparent;
   color: white;
-  outline: none;
   grid-area: b;
 }
 
-.new-game:hover,
-.new-game:focus {
+button:hover,
+button:focus {
   background-color: rgba(0, 0, 0, 0.418);
   text-decoration: none;
   cursor: pointer;
 }
 
 div[data-value="1"] > span {
-  color: #730000;
+  color: #d80000;
   position: fixed;
 }
 
 div[data-value="2"] > span {
-  color: #0033a9;
+  color: #1164ff;
   position: fixed;
 }
 
@@ -145,17 +150,38 @@ div[data-value="c"] > span {
 }
 
 div.player-score[data-player-id="1"] > .score-title {
-  color: #730000;
+  color: #d80000;
   font-size: large;
 }
 
 div.player-score[data-player-id="2"] > .score-title {
-  color: #0033a9;
+  color: #1164ff;
 }
 
-#modal-content[data-winner-id="1"] {
-  background-color: #c54f4fc7;
+#game-over-modal-content[data-winner-id="1"] {
+  background-color: #631111d1;
 }
-#modal-content[data-winner-id="2"] {
-  background-color: #446eadc7;
+#game-over-modal-content[data-winner-id="2"] {
+  background-color: #112c69c7;
+}
+
+#start-game-modal-content {
+  background-color: #3a2c0acc;
+  text-align: center;
+}
+
+#game-dimensions-container {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+#game-dimensions-container input {
+  width: 50px;
+  justify-self: center;
+}
+
+#start-game-modal {
+  background-image: url("./assets/coins-pile.png");
+  background-color: rgb(202 169 89);
+  background-size: cover;
 }
