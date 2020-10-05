@@ -17,21 +17,18 @@ class Renderer {
   }
   renderScores(scores) {
     const $container = this.view.$scoresContainer
-    $container.empty()
     const newHTML = this.getTemplateHtml(this.view.$scoresTemplate, { scores })
-    $container.append(newHTML)
+    $container.empty().append(newHTML)
   }
   renderBoard(board) {
     const $container = this.view.$boardContainer
-    $container.empty()
     const newHTML = this.getTemplateHtml(this.view.$boardTemplate, { board })
-    $container.append(newHTML)
+    $container.empty().append(newHTML)
   }
   renderGameOver(game) {
     const $container = this.view.$gameOverContainer
-    $container.empty()
     const newHTML = this.getTemplateHtml(this.view.$gameOverTemplate, game)
-    $container.append(newHTML)
+    $container.empty().append(newHTML)
     $("#game-over-modal-content").attr("data-winner-id",game.winner)
     $("#game-over-modal").removeClass("hidden")
   }

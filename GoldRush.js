@@ -45,9 +45,6 @@ class GoldRush {
     }
     return clearedPositions
   }
-  placeBlocksRandomly(board) {
-    //const clearedPositions = this.getClearedPositions(board)
-  }
   placeCoinsRandomly(board) {
     this.coins.total = this.dimensions
     const clearedPositions = this.getClearedPositions(board)
@@ -74,7 +71,6 @@ class GoldRush {
     }
     this.setPlayersPositionOnBoard(board)
     this.placeCoinsRandomly(board)
-    //this.placeBlocksRandomly(board)
     return board
   }
   get(rowNum, colNum) {
@@ -96,7 +92,6 @@ class GoldRush {
   collectCoin(playerIndex) {
     const player = this.players[playerIndex]
     player.coins++
-    //console.log(`player ${player.id} collected a coin! Now they have ${player.coins} coins.`)
     const coinPosIndex = this.coins.positions.findIndex(
       (pos) =>
         pos.row === player.position.row && pos.col === player.position.col
@@ -131,28 +126,24 @@ class GoldRush {
         isAdjacentToOtherPlayer =
           otherPlayer.position.col === activePlayer.position.col &&
           otherPlayer.position.row - 1 === activePlayer.position.row
-        //isNotAdjacentToBlock= this.blocks.positions.some(pos=>pos.row - 1 === activePlayer.position.row)
         break
       case "up":
         isSpaceLeftUntillEdge = 0 + activePlayer.position.row
         isAdjacentToOtherPlayer =
           otherPlayer.position.col === activePlayer.position.col &&
           activePlayer.position.row - 1 === otherPlayer.position.row
-        // block
         break
       case "right":
         isSpaceLeftUntillEdge = this.dimensions - 1 - activePlayer.position.col
         isAdjacentToOtherPlayer =
           otherPlayer.position.row === activePlayer.position.row &&
           otherPlayer.position.col - 1 === activePlayer.position.col
-        // block
         break
       case "left":
         isSpaceLeftUntillEdge = 0 + activePlayer.position.col
         isAdjacentToOtherPlayer =
           otherPlayer.position.row === activePlayer.position.row &&
           activePlayer.position.col - 1 === otherPlayer.position.col
-        // block
         break
     }
     return !isSpaceLeftUntillEdge || isAdjacentToOtherPlayer ? false : true
